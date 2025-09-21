@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/main}">
+<head>
+    <title>Thêm Category</title>
+</head>
+<body>
+<section layout:fragment="content">
+    <h2>Thêm Category mới</h2>
+
+    <form th:action="@{/admin/categories/save}" method="post">
+        <label>Tên:</label>
+        <input type="text" name="categoryName" required><br/><br/>
+
+        <label>Hình ảnh (URL):</label>
+        <input type="text" name="images"><br/><br/>
+
+        <button type="submit">Lưu</button>
+    </form>
+
+    <br/>
+    <a th:href="@{/admin/categories}">⬅ Quay lại danh sách</a>
+</section>
+</body>
+</html>

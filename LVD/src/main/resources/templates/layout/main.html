@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8">
+    <title layout:title-pattern="$DECORATOR_TITLE - $CONTENT_TITLE">My Web</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+    <style>
+    /* Định dạng cho khối container chính */
+    .container {
+        width: 80%; /* Hoặc một chiều rộng cố định như 960px */
+        margin: 20px auto; /* Tự động căn giữa theo chiều ngang */
+        text-align: center; /* Căn giữa các thành phần text, button bên trong */
+    }
+
+    /* Căn giữa bảng */
+    .container table {
+        margin-left: auto;
+        margin-right: auto;
+        border-collapse: collapse; /* Gộp đường viền cho đẹp hơn */
+    }
+
+    /* Căn trái lại nội dung trong các ô của bảng cho dễ đọc */
+    .container table th, .container table td {
+        text-align: left;
+        padding: 8px; /* Thêm khoảng cách cho dễ nhìn */
+    }
+
+    /* Căn giữa cho cột Thao tác */
+    .container table td:last-child {
+        text-align: center;
+    }
+
+    /* Căn giữa cho ô chứa ảnh */
+     .container table td:nth-child(3) {
+        text-align: center;
+    }
+</style>
+</head>
+<body>
+
+    <!-- HEADER -->
+    <div th:replace="layout/header :: header"></div>
+
+    <!-- CONTENT -->
+    <main layout:fragment="content">
+        <!-- Nội dung con sẽ vào đây -->
+    </main>
+
+    <!-- FOOTER -->
+    <div th:replace="layout/footer :: footer"></div>
+
+</body>
+</html>
