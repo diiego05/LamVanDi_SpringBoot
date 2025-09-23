@@ -9,6 +9,7 @@ public interface CategoryService {
     List<Category> findAll();
     Category findById(int id);
     Category save(Category category);
+    Category updateCategory(Integer id, Category category);
     void deleteById(int id);
     
     // phân trang + tìm kiếm
