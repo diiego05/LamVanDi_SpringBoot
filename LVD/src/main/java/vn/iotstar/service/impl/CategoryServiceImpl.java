@@ -46,4 +46,14 @@ public class CategoryServiceImpl implements CategoryService {
     public Page<Category> searchByName(String name, Pageable pageable) {
         return categoryRepository.findByCategoryNameContainingIgnoreCase(name, pageable);
     }
+     @Override
+    public Category updateCategory(Integer id, Category categoryDetails) {
+        Category category = categoryRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Không tìm thấy category với id = " + id));
+
+        category.setCategoryName(categoryDetails.getCategoryName());
+        category.setImages(categoryDetails.getImages());
+
+        return categoryRepository.save(category);
+    }
 }
