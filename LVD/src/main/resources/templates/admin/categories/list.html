@@ -4,6 +4,20 @@
       layout:decorate="~{layout/main}">
 <head>
     <title>Danh sách Categories</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: center;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
 </head>
 <body>
 <section layout:fragment="content">
@@ -12,15 +26,13 @@
 
         <h2>Danh sách Categories</h2>
 
-        <form th:action="@{/admin/categories}" method="get">
+        <form th:action="@{/admin/categories}" method="get" style="margin-bottom: 15px;">
             <input type="text" name="keyword" placeholder="Nhập tên cần tìm"
                    th:value="${keyword}">
             <button type="submit">Tìm kiếm</button>
         </form>
 
-        <br/>
-
-        <table border="1" cellpadding="5" cellspacing="0">
+        <table>
             <thead>
             <tr>
                 <th>ID</th>
@@ -33,7 +45,7 @@
             <tr th:each="cat : ${categoryPage.content}">
                 <td th:text="${cat.id}"></td>
                 <td th:text="${cat.categoryName}"></td>
-                <td><img th:src="@{${cat.images}}" alt="img" width="80"></td>
+                <td><img th:src="@{${cat.images}}" alt="img" width="120"></td>
                 <td>
                     <a th:href="@{'/admin/categories/edit/' + ${cat.id}}">Sửa</a> |
                     <a th:href="@{'/admin/categories/delete/' + ${cat.id}}"
@@ -43,22 +55,19 @@
             </tbody>
         </table>
 
-        <br/>
-
-        <div>
+        <div style="display:flex; justify-content:center; align-items:center; gap:20px; margin-top:15px;">
             <span>Trang [[${categoryPage.number + 1}]] / [[${categoryPage.totalPages}]]</span>
-            <div>
-                <a th:if="${!categoryPage.first}"
-                   th:href="@{/admin/categories(page=${categoryPage.number - 1}, keyword=${keyword})}">« Trước</a>
-                <a th:if="${!categoryPage.last}"
-                   th:href="@{/admin/categories(page=${categoryPage.number + 1}, keyword=${keyword})}">Sau »</a>
-            </div>
+            <a th:if="${!categoryPage.first}"
+               th:href="@{/admin/categories(page=${categoryPage.number - 1}, keyword=${keyword})}">« Trước</a>
+            <a th:if="${!categoryPage.last}"
+               th:href="@{/admin/categories(page=${categoryPage.number + 1}, keyword=${keyword})}">Sau »</a>
         </div>
 
-        <br/>
-        <a th:href="@{/admin/categories/add}">➕ Thêm mới</a>
+        <div style="text-align:center; margin-top:10px;">
+            <a th:href="@{/admin/categories/add}">➕ Thêm mới</a>
+        </div>
 
-    </div> </section>
+    </div>
+</section>
 </body>
 </html>
-
