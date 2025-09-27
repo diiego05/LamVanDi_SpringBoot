@@ -1,73 +1,79 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layout/main}">
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/main}">
 <head>
-    <title>Danh sách Categories</title>
-    <style>
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            text-align: center;
-        }
-        th, td {
-            border: 1px solid #ddd;
-            padding: 8px;
-        }
-        th {
-            background-color: #f2f2f2;
-        }
-    </style>
+<title>Danh sách Categories</title>
+<style>
+table {
+	width: 100%;
+	border-collapse: collapse;
+	text-align: center;
+}
+
+th, td {
+	border: 1px solid #ddd;
+	padding: 8px;
+}
+
+th {
+	background-color: #f2f2f2;
+}
+</style>
 </head>
 <body>
-<section layout:fragment="content">
+	<section layout:fragment="content">
 
-    <div class="container">
+		<div class="container">
 
-        <h2>Danh sách Categories</h2>
+			<h2>Danh sách Categories</h2>
 
-        <form th:action="@{/admin/categories}" method="get" style="margin-bottom: 15px;">
-            <input type="text" name="keyword" placeholder="Nhập tên cần tìm"
-                   th:value="${keyword}">
-            <button type="submit">Tìm kiếm</button>
-        </form>
+			<form th:action="@{/admin/categories}" method="get"
+				style="margin-bottom: 15px;">
+				<input type="text" name="keyword" placeholder="Nhập tên cần tìm"
+					th:value="${keyword}">
+				<button type="submit">Tìm kiếm</button>
+			</form>
 
-        <table>
-            <thead>
-            <tr>
-                <th>ID</th>
-                <th>Tên</th>
-                <th>Hình ảnh</th>
-                <th>Thao tác</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="cat : ${categoryPage.content}">
-                <td th:text="${cat.id}"></td>
-                <td th:text="${cat.categoryName}"></td>
-                <td><img th:src="@{${cat.images}}" alt="img" width="120"></td>
-                <td>
-                    <a th:href="@{'/admin/categories/edit/' + ${cat.id}}">Sửa</a> |
-                    <a th:href="@{'/admin/categories/delete/' + ${cat.id}}"
-                       onclick="return confirm('Bạn có chắc muốn xóa?')">Xóa</a>
-                </td>
-            </tr>
-            </tbody>
-        </table>
+			<table>
+				<thead>
+					<tr>
+						<th>ID</th>
+						<th>Tên</th>
+						<th>Hình ảnh</th>
+						<th>Thao tác</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="cat : ${categoryPage.content}">
+						<td th:text="${cat.categoryId}"></td>
+						<td th:text="${cat.categoryName}"></td>
+						<td><img th:src="@{'/uploads/' + ${cat.icon}}" alt="img"
+							width="120"></td>
 
-        <div style="display:flex; justify-content:center; align-items:center; gap:20px; margin-top:15px;">
-            <span>Trang [[${categoryPage.number + 1}]] / [[${categoryPage.totalPages}]]</span>
-            <a th:if="${!categoryPage.first}"
-               th:href="@{/admin/categories(page=${categoryPage.number - 1}, keyword=${keyword})}">« Trước</a>
-            <a th:if="${!categoryPage.last}"
-               th:href="@{/admin/categories(page=${categoryPage.number + 1}, keyword=${keyword})}">Sau »</a>
-        </div>
+						<td><a
+							th:href="@{'/admin/categories/edit/' + ${cat.categoryId}}">Sửa</a>
+							| <a th:href="@{'/admin/categories/delete/' + ${cat.categoryId}}"
+							onclick="return confirm('Bạn có chắc muốn xóa?')">Xóa</a></td>
+					</tr>
+				</tbody>
+			</table>
 
-        <div style="text-align:center; margin-top:10px;">
-            <a th:href="@{/admin/categories/add}">➕ Thêm mới</a>
-        </div>
+			<div
+				style="display: flex; justify-content: center; align-items: center; gap: 20px; margin-top: 15px;">
+				<span>Trang [[${categoryPage.number + 1}]] /
+					[[${categoryPage.totalPages}]]</span> <a th:if="${!categoryPage.first}"
+					th:href="@{/admin/categories(page=${categoryPage.number - 1}, keyword=${keyword})}">«
+					Trước</a> <a th:if="${!categoryPage.last}"
+					th:href="@{/admin/categories(page=${categoryPage.number + 1}, keyword=${keyword})}">Sau
+					»</a>
+			</div>
 
-    </div>
-</section>
+			<div style="text-align: center; margin-top: 10px;">
+				<a th:href="@{/admin/categories/add}">➕ Thêm mới</a>
+			</div>
+
+		</div>
+	</section>
 </body>
 </html>

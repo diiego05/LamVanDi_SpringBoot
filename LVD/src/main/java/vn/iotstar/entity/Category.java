@@ -1,26 +1,35 @@
 package vn.iotstar.entity;
 
 import java.io.Serializable;
+import java.util.Set;
 import jakarta.persistence.*;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
 @Entity
-@Table(name="Categories")
-@NamedQuery(name="Category.findAll", query="SELECT c FROM Category c")
+@Table(name = "Categories")
 public class Category implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    @Column(name = "id")
+    private Long categoryId;
 
-    @Column(name="categoryName", columnDefinition = "NVARCHAR(255)")
+    @Column(nullable = false, length = 100)
     private String categoryName;
 
-    @Column(columnDefinition = "NVARCHAR(MAX)")
+    @Column(name = "images",length = 255)
+    private String icon;
+
+    @Transient
     private String images;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Set<Product> products;
 }

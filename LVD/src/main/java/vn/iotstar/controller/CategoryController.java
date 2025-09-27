@@ -30,7 +30,7 @@ public class CategoryController {
         Page<Category> categoryPage;
 
         if (keyword != null && !keyword.isEmpty()) {
-            categoryPage = categoryService.searchByName(keyword, pageable);
+            categoryPage = categoryService.findByCategoryNameContainingIgnoreCase(keyword, pageable);
             model.addAttribute("keyword", keyword);
         } else {
             categoryPage = categoryService.findAll(pageable);
@@ -62,11 +62,11 @@ public class CategoryController {
      * Form sửa
      */
     @GetMapping("/edit/{id}")
-    public String editForm(@PathVariable("id") int id, Model model) {
-        Category category = categoryService.findById(id);
+    public String editForm(@PathVariable("id") Long id, Model model) {
+        Category category = categoryService.findById(id).orElse(null);
         if (category != null) {
             model.addAttribute("category", category);
-            return "admin/categories/edit"; // Trỏ đến templates/admin/categories/edit.html
+            return "admin/categories/edit";
         }
         return "redirect:/admin/categories";
     }
@@ -75,7 +75,7 @@ public class CategoryController {
      * Xóa category
      */
     @GetMapping("/delete/{id}")
-    public String delete(@PathVariable("id") int id) {
+    public String delete(@PathVariable("id") Long id) {
         categoryService.deleteById(id);
         return "redirect:/admin/categories";
     }
