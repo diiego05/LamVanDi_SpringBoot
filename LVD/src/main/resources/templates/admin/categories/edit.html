@@ -8,16 +8,19 @@
 <h1>Edit Category</h1>
 
 <form th:action="@{/admin/categories/save}" th:object="${category}" method="post">
-    <input type="hidden" th:field="*{id}" />
+    <!-- Sửa lại đúng field -->
+    <input type="hidden" th:field="*{categoryId}" />
 
     <label>Tên danh mục:</label>
     <input type="text" th:field="*{categoryName}" /><br/>
 
     <label>Hình ảnh:</label>
-    <input type="text" th:field="*{images}" /><br/>
+    <!-- Nếu bạn lưu ảnh trong cột "icon" thì binding vào icon -->
+    <input type="text" th:field="*{icon}" /><br/>
 
     <button type="submit">Lưu</button>
 </form>
-<a th:href="@{/categories}">Quay lại danh sách</a>
+
+<a th:href="@{/admin/categories}">Quay lại danh sách</a>
 </body>
 </html>

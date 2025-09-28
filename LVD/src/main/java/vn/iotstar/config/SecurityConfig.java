@@ -9,20 +9,18 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration
 public class SecurityConfig {
 
-	@Bean
+    @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
             .csrf(csrf -> csrf.disable())
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/api/**").permitAll() // ✅ Cho phép API tự do
+                .requestMatchers("/api/**").permitAll()         // Cho phép API public
+                .requestMatchers("/uploads/**").permitAll()     // Cho phép load ảnh upload
                 .requestMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll()
-                .requestMatchers("/admin/**").permitAll()
-                .anyRequest().authenticated()
+                .requestMatchers("/admin/**").permitAll()       // Tạm cho phép admin
+                .anyRequest().permitAll()                       // Cho phép hết
             )
-            .formLogin(form -> form
-                .loginPage("/login") // login chỉ áp dụng cho web
-                .permitAll()
-            )
+            .formLogin(form -> form.disable())                  // Disable login form
             .logout(logout -> logout.permitAll());
 
         return http.build();

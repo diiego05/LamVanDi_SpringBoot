@@ -21,7 +21,7 @@ public class Product implements Serializable {
 	private Long productId;
 	@Column(length = 500, columnDefinition = "nvarchar(500) not null")
 	private String productName;
-	@Column(nullable = false)
+//	@Column(nullable = false)
 	private int quantity;
 	@Column(nullable = false)
 	private double unitPrice;
