@@ -45,8 +45,6 @@ Thư mục chính:
 - [ ] Phân quyền cơ bản (người dùng/quản trị)
 
 
-Lưu ý: Hạng mục sẽ được cập nhật dần theo tiến độ dự án.
-
 ---
 
 ## Yêu cầu hệ thống
